@@ -1,79 +1,110 @@
-<div class="bg-gray-50 py-12 min-h-screen">
+<div class="py-12 bg-gray-50 min-h-screen">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        {{-- Header & Navigation --}}
-        <div
-            class="flex flex-col md:flex-row justify-between items-center mb-8 bg-white p-6 rounded-lg shadow-sm border-t-4 border-[#006747]">
-            <div class="mb-4 md:mb-0">
-                <h1 class="text-3xl font-bold text-[#006747] flex items-center gap-3">
-                    <span class="text-4xl">{{ $monthName }}</span>
-                    <span class="text-gray-400 font-light">{{ $year }}</span>
-                </h1>
-            </div>
-
-            <div class="flex items-center gap-4">
-                <button wire:click="previousMonth"
-                    class="px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded hover:bg-gray-50 hover:text-[#006747] transition-colors focus:outline-none focus:ring-2 focus:ring-[#006747] focus:ring-offset-2">
-                    &larr; Previous
-                </button>
-                <button wire:click="nextMonth"
-                    class="px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded hover:bg-gray-50 hover:text-[#006747] transition-colors focus:outline-none focus:ring-2 focus:ring-[#006747] focus:ring-offset-2">
-                    Next &rarr;
-                </button>
-            </div>
+        <div class="bg-white rounded-lg shadow-xl overflow-hidden border-t-4 border-[#006747] p-6">
+            <div id='calendar'></div>
         </div>
 
-        {{-- Calendar Grid --}}
-        <div class="bg-white shadow-lg rounded-lg overflow-hidden border border-gray-200">
-            {{-- Day Headers --}}
-            <div class="grid grid-cols-7 border-b border-gray-200 bg-[#006747] text-white">
-                @foreach(['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'] as $dayHeader)
-                    <div class="py-3 text-center font-semibold text-sm uppercase tracking-wider">
-                        {{ $dayHeader }}
-                    </div>
-                @endforeach
-            </div>
-
-            {{-- Days --}}
-            <div class="grid grid-cols-7 bg-gray-200 gap-px border-b border-gray-200">
-                {{-- Empty slots for previous month --}}
-                @for ($i = 0; $i < $startOfWeek; $i++)
-                    <div class="bg-white min-h-[120px] p-2 opacity-50"></div>
-                @endfor
-
-                {{-- Current Month Days --}}
-                @for ($day = 1; $day <= $daysInMonth; $day++)
-                    @php
-                        $isHoliday = isset($holidays[$day]);
-                        $holidayName = $isHoliday ? $holidays[$day] : '';
-                    @endphp
-
-                    <div class="bg-white min-h-[120px] p-2 relative group hover:bg-gray-50 transition-colors">
-                        <span class="inline-flex items-center justify-center w-8 h-8 rounded-full text-sm font-medium
-                                {{ $isHoliday ? 'bg-[#CFB53B] text-white' : 'text-gray-700' }}">
-                            {{ $day }}
-                        </span>
-
-                        @if($isHoliday)
-                            <div class="mt-2 text-xs font-semibold text-[#006747] bg-[#006747]/10 p-1 rounded border-l-2 border-[#006747] truncate"
-                                title="{{ $holidayName }}">
-                                {{ $holidayName }}
-                            </div>
-                        @endif
-                    </div>
-                @endfor
-
-                {{-- Empty slots for next month to complete the grid (optional but looks better) --}}
-                @php
-                    $totalSlots = $startOfWeek + $daysInMonth;
-                    $remainingSlots = 7 - ($totalSlots % 7);
-                    if ($remainingSlots == 7)
-                        $remainingSlots = 0;
-                @endphp
-                @for ($i = 0; $i < $remainingSlots; $i++)
-                    <div class="bg-white min-h-[120px] p-2 opacity-50"></div>
-                @endfor
-            </div>
-        </div>
     </div>
+
+    {{-- FullCalendar Styles & Overrides --}}
+    <style>
+        :root {
+            --fc-border-color: #e5e7eb;
+            --fc-button-text-color: #006747;
+            --fc-button-bg-color: #ffffff;
+            --fc-button-border-color: #d1d5db;
+            --fc-button-hover-bg-color: #f9fafb;
+            --fc-button-hover-border-color: #9ca3af;
+            --fc-button-active-bg-color: #f3f4f6;
+            --fc-button-active-border-color: #6b7280;
+            --fc-event-bg-color: #CFB53B;
+            --fc-event-border-color: #CFB53B;
+            --fc-event-text-color: #ffffff;
+            --fc-today-bg-color: rgba(207, 181, 59, 0.1);
+            --fc-page-bg-color: #ffffff;
+            --fc-neutral-bg-color: #f9fafb;
+            --fc-list-event-hover-bg-color: #f3f4f6;
+            --fc-highlight-color: rgba(0, 103, 71, 0.1);
+        }
+
+        /* Title styling */
+        .fc-toolbar-title {
+            color: #006747 !important;
+            font-weight: 700 !important;
+            font-size: 1.75rem !important;
+        }
+
+        /* Header cells (Days of week) */
+        .fc-col-header-cell {
+            background-color: #006747;
+            color: #ffffff;
+            padding: 12px 0 !important;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Event styling */
+        .holiday-event {
+            border: none !important;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            font-weight: 600;
+            padding: 2px 4px;
+        }
+
+        /* Today highlight border */
+        .fc-day-today {
+            background-color: var(--fc-today-bg-color) !important;
+        }
+
+        /* Grid Links */
+        .fc a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* Button overrides */
+        .fc-button-primary {
+            color: #006747 !important;
+            background-color: white !important;
+            border-color: #d1d5db !important;
+            font-weight: 600 !important;
+            text-transform: capitalize;
+        }
+
+        .fc-button-primary:hover {
+            background-color: #f9fafb !important;
+            border-color: #006747 !important;
+        }
+
+        .fc-button-primary:focus {
+            box-shadow: 0 0 0 2px rgba(0, 103, 71, 0.5) !important;
+        }
+
+        .fc-button-active {
+            background-color: #006747 !important;
+            color: white !important;
+            border-color: #006747 !important;
+        }
+    </style>
+
+    {{-- Initialize FullCalendar --}}
+    {{-- Initialize FullCalendar --}}
+    @vite(['resources/js/calendar.js'])
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            if (window.initCalendar) {
+                window.initCalendar(@json($events));
+            } else {
+                // Fallback or wait for load
+                var checkInterval = setInterval(function() {
+                    if (window.initCalendar) {
+                        clearInterval(checkInterval);
+                        window.initCalendar(@json($events));
+                    }
+                }, 100);
+            }
+        });
+    </script>
 </div>

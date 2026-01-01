@@ -6,49 +6,10 @@ use Livewire\Component;
 
 class Calendar extends Component
 {
-    public $currentYear;
-    public $currentMonth;
-
-    public function mount()
-    {
-        $this->currentYear = 2026;
-        $this->currentMonth = 1; // Start in January
-    }
-
-    public function nextMonth()
-    {
-        $this->currentMonth++;
-        if ($this->currentMonth > 12) {
-            $this->currentMonth = 1;
-            $this->currentYear++;
-        }
-    }
-
-    public function previousMonth()
-    {
-        $this->currentMonth--;
-        if ($this->currentMonth < 1) {
-            $this->currentMonth = 12;
-            $this->currentYear--;
-        }
-    }
-
     public function render()
     {
-        $dt = \Carbon\Carbon::createFromDate($this->currentYear, $this->currentMonth, 1);
-
-        $daysInMonth = $dt->daysInMonth;
-        $startOfWeek = $dt->dayOfWeek; // 0 (Sun) - 6 (Sat)
-
-        // Holidays logic (simplified for 2026 and dynamic checking)
-        $holidays = $this->getHolidays($this->currentYear, $this->currentMonth);
-
         return view('livewire.superduper.pages.calendar', [
-            'monthName' => $dt->format('F'),
-            'year' => $this->currentYear,
-            'daysInMonth' => $daysInMonth,
-            'startOfWeek' => $startOfWeek,
-            'holidays' => $holidays,
+            'events' => $this->getEvents(),
         ])
             ->layout('components.superduper.main', [
                 'pageTitle' => '2026 Calendar',
@@ -56,24 +17,76 @@ class Calendar extends Component
             ]);
     }
 
-    private function getHolidays($year, $month)
+    private function getEvents()
     {
-        // Static definition for key 2026 holidays or calculate dynamically
-        // This is a simplified list for demonstration based on the previous step's data
-        $allHolidays = [
-            2026 => [
-                1 => [1 => "New Year's Day", 19 => "MLK Day"],
-                2 => [16 => "Presidents' Day"],
-                5 => [25 => "Memorial Day"],
-                6 => [19 => "Juneteenth"],
-                7 => [4 => "Independence Day"],
-                9 => [7 => "Labor Day"],
-                10 => [12 => "Columbus Day"],
-                11 => [11 => "Veterans Day", 26 => "Thanksgiving"],
-                12 => [25 => "Christmas Day"],
-            ]
+        // 2026 Holidays
+        return [
+            [
+                'title' => "New Year's Day",
+                'start' => '2026-01-01',
+                'allDay' => true,
+                'className' => 'holiday-event'
+            ],
+            [
+                'title' => "MLK Day",
+                'start' => '2026-01-19',
+                'allDay' => true,
+                'className' => 'holiday-event'
+            ],
+            [
+                'title' => "Presidents' Day",
+                'start' => '2026-02-16',
+                'allDay' => true,
+                'className' => 'holiday-event'
+            ],
+            [
+                'title' => "Memorial Day",
+                'start' => '2026-05-25',
+                'allDay' => true,
+                'className' => 'holiday-event'
+            ],
+            [
+                'title' => "Juneteenth",
+                'start' => '2026-06-19',
+                'allDay' => true,
+                'className' => 'holiday-event'
+            ],
+            [
+                'title' => "Independence Day",
+                'start' => '2026-07-04',
+                'allDay' => true,
+                'className' => 'holiday-event'
+            ],
+            [
+                'title' => "Labor Day",
+                'start' => '2026-09-07',
+                'allDay' => true,
+                'className' => 'holiday-event'
+            ],
+            [
+                'title' => "Columbus Day",
+                'start' => '2026-10-12',
+                'allDay' => true,
+                'className' => 'holiday-event'
+            ],
+            [
+                'title' => "Veterans Day",
+                'start' => '2026-11-11',
+                'allDay' => true,
+                'className' => 'holiday-event'
+            ],
+            [
+                'title' => "Thanksgiving",
+                'start' => '2026-11-26',
+                'allDay' => true,
+                'className' => 'holiday-event'
+            ],
+            [
+                'title' => "Christmas Day",
+                'start' => '2026-12-25',
+                'allDay' => true,
+                'className' => 'holiday-event'
+            ],
         ];
-
-        return $allHolidays[$year][$month] ?? [];
     }
 }
