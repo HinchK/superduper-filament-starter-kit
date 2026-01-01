@@ -32,6 +32,8 @@ Route::get('/blog/{slug}', BlogDetails::class)->name('blog.show');
 
 Route::get('/contact-us', ContactUs::class)->name('contact-us');
 
+Route::get('/calendar', \App\Livewire\SuperDuper\Pages\Calendar::class)->name('calendar');
+
 Route::get('/privacy-policy', function () {
     return view('components.superduper.pages.coming-soon');
 })->name('privacy-policy');
@@ -47,8 +49,8 @@ Route::get('/coming-soon', function () {
 Route::post('/contact', [App\Http\Controllers\ContactController::class, 'submit'])
     ->name('contact.submit');
 
-Route::get('impersonate/leave', function() {
-    if(!app(ImpersonateManager::class)->isImpersonating()) {
+Route::get('impersonate/leave', function () {
+    if (!app(ImpersonateManager::class)->isImpersonating()) {
         return redirect('/');
     }
 
