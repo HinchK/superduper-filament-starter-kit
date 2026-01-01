@@ -20,3 +20,6 @@ yarn-error.log
 /-local
 /docs
 setup.php.disabled
+.env.backup
+package-lock.json
+.DS_Store
