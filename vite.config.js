@@ -7,6 +7,7 @@ export default defineConfig({
             input: [
                 "resources/css/app.css",
                 "resources/js/app.js",
+                "resources/js/calendar.js",
                 "resources/css/filament/admin/theme.css",
 
                 // Themes
@@ -26,19 +27,19 @@ export default defineConfig({
                 assetFileNames: (assetInfo) => {
                     const info = assetInfo.name.split('.');
                     const ext = info[info.length - 1];
-                    
+
                     if (ext === 'css') {
                         return 'css/[name]-[hash].[ext]';
                     }
-                    
+
                     if (['woff', 'woff2', 'ttf', 'eot'].includes(ext)) {
                         return 'fonts/[name]-[hash].[ext]';
                     }
-                    
+
                     if (['svg', 'png', 'jpg', 'jpeg', 'gif', 'webp', 'ico'].includes(ext)) {
                         return 'images/[name]-[hash].[ext]';
                     }
-                    
+
                     return 'assets/[name]-[hash].[ext]';
                 },
             },
