@@ -19,8 +19,7 @@ class Calendar extends Component
 
     private function getEvents()
     {
-        // 2026 Holidays
-        return [
+        $holidays = [
             [
                 'title' => "New Year's Day",
                 'start' => '2026-01-01',
@@ -88,5 +87,17 @@ class Calendar extends Component
                 'className' => 'holiday-event'
             ],
         ];
+
+        $dbEvents = \App\Models\Event::all()->map(function ($event) {
+            return [
+                'title' => $event->title,
+                'start' => $event->allDay ? $event->start->format('Y-m-d') : $event->start->toIso8601String(),
+                'end' => $event->end ? ($event->allDay ? $event->end->format('Y-m-d') : $event->end->toIso8601String()) : null,
+                'allDay' => $event->allDay,
+                'className' => $event->className,
+            ];
+        })->toArray();
+
+        return array_merge($holidays, $dbEvents);
     }
 }
