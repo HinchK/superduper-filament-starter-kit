@@ -5,7 +5,7 @@
 3. [x] **News & Announcements** — Implement a system for Admins to post news items and a view for Players to read them. `XS`
 4. [x] **Score Entry System** — Develop a frontend or user-panel resource for Players to enter their scores for specific events. (Includes Pest v4 browser tests for interactive validation). `M`
 5. [x] **Leaderboard & Results** — Create views to display aggregated scores and calculate rankings for events. `M`
-6. [ ] **Winner Declaration** — Add functionality for Admins to mark specific players as winners of tournaments/events. `S`
+6. [x] **Winner Declaration** — Add functionality for Admins to mark specific players as winners of tournaments/events. `S`
 7. [ ] **User Profile & Stats** — Enhance the user profile to show personal score history and statistics. `S`
 
 > Notes

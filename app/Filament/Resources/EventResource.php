@@ -59,6 +59,11 @@ class EventResource extends Resource
                         Forms\Components\Select::make('status')
                             ->options(EventStatus::class)
                             ->required(),
+                        Forms\Components\Select::make('winner_user_id')
+                            ->label('Official Winner')
+                            ->relationship('winner', 'username')
+                            ->searchable()
+                            ->preload(),
                     ])->columns(3),
 
                 Forms\Components\Section::make('Tournament Registration')

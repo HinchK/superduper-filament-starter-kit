@@ -23,6 +23,7 @@ class Event extends Model
         'description',
         'result_notes',
         'course_id',
+        'winner_user_id',
         'type',
         'format',
         'status',
@@ -46,6 +47,11 @@ class Event extends Model
     public function course(): BelongsTo
     {
         return $this->belongsTo(Course::class);
+    }
+
+    public function winner(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'winner_user_id');
     }
 
     public function registrations(): BelongsToMany
