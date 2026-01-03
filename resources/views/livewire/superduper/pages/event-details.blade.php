@@ -19,6 +19,8 @@
             </div>
         @endif
 
+        <livewire:super-duper.components.event-leaderboard :event="$event" />
+
         <div class="mt-8">
             <a href="{{ route('calendar') }}" class="text-primary-600 hover:text-primary-700 font-medium">
                 &larr; Back to Calendar

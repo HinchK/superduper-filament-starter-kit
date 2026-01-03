@@ -34,6 +34,7 @@ Route::get('/contact-us', ContactUs::class)->name('contact-us');
 
 Route::get('/calendar', \App\Livewire\SuperDuper\Pages\Calendar::class)->name('calendar');
 Route::get('/events/{event}', \App\Livewire\SuperDuper\Pages\EventDetails::class)->name('event.details');
+Route::get('/standings', \App\Livewire\SuperDuper\Pages\SeasonStandings::class)->name('standings');
 
 Route::get('/privacy-policy', function () {
     return view('components.superduper.pages.coming-soon');

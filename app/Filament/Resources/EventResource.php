@@ -124,6 +124,7 @@ class EventResource extends Resource
     {
         return [
             RegistrationsRelationManager::class,
+            \App\Filament\Resources\EventResource\RelationManagers\ScoresRelationManager::class,
         ];
     }
 

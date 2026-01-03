@@ -22,6 +22,10 @@
                         <h2 class="mb-4 font-bold">Feature-Rich Blog Platform, Ready to Publish</h2>
                         <p class="max-w-2xl mx-auto text-lg text-gray-600 dark:text-gray-300">Launch your content strategy immediately with SuperDuper's integrated blog system</p>
                     </div>
+
+                    <div class="max-w-xl mx-auto mb-16">
+                        <livewire:super-duper.components.recent-results />
+                    </div>
                     
                     <!-- Blog Showcase -->
                     <div class="mb-16">

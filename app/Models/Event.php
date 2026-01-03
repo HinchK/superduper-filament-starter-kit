@@ -21,6 +21,7 @@ class Event extends Model
         'allDay',
         'className',
         'description',
+        'result_notes',
         'course_id',
         'type',
         'format',

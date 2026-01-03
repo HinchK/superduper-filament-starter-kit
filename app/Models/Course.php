@@ -13,6 +13,7 @@ class Course extends Model
     protected $fillable = [
         'name',
         'address',
+        'holes_count',
         'par',
         'slope',
         'rating',
