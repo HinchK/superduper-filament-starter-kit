@@ -95,6 +95,7 @@ class Calendar extends Component
                 'end' => $event->end ? ($event->allDay ? $event->end->format('Y-m-d') : $event->end->toIso8601String()) : null,
                 'allDay' => $event->allDay,
                 'className' => $event->className,
+                'url' => route('event.details', $event->id),
             ];
         })->toArray();
 

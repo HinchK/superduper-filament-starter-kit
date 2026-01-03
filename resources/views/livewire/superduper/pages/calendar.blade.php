@@ -90,7 +90,6 @@
     </style>
 
     {{-- Initialize FullCalendar --}}
-    {{-- Initialize FullCalendar --}}
     @vite(['resources/js/calendar.js'])
     <script>
         document.addEventListener('DOMContentLoaded', function() {

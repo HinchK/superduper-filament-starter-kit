@@ -33,6 +33,7 @@ Route::get('/blog/{slug}', BlogDetails::class)->name('blog.show');
 Route::get('/contact-us', ContactUs::class)->name('contact-us');
 
 Route::get('/calendar', \App\Livewire\SuperDuper\Pages\Calendar::class)->name('calendar');
+Route::get('/events/{event}', \App\Livewire\SuperDuper\Pages\EventDetails::class)->name('event.details');
 
 Route::get('/privacy-policy', function () {
     return view('components.superduper.pages.coming-soon');

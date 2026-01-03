@@ -13,6 +13,12 @@ window.initCalendar = function (events) {
             center: 'title',
             right: 'dayGridMonth,dayGridWeek,dayGridDay'
         },
+        eventClick: function (info) {
+            if (info.event.url) {
+                info.jsEvent.preventDefault();
+                window.location.href = info.event.url;
+            }
+        },
         events: events,
         height: 800,
         firstDay: 0,
