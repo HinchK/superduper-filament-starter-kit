@@ -106,6 +106,8 @@ class PostObserver
      */
     public function created(Post $post): void
     {
+        $this->sendNewsNotification($post);
+
         // You can add any post-creation logic here
         // For example, sending notifications to editors when authors submit for review
 
@@ -120,9 +122,36 @@ class PostObserver
      */
     public function updated(Post $post): void
     {
+        $this->sendNewsNotification($post);
+
         // Handle status change notifications
         if ($post->wasChanged('status')) {
             $this->handleStatusChangeNotifications($post);
+        }
+    }
+
+    protected function sendNewsNotification(Post $post): void
+    {
+        $newsCategory = \App\Models\Blog\Category::where('slug', 'news')->first();
+
+        if (!$newsCategory) {
+            return;
+        }
+
+        if (
+            ($post->status->value ?? $post->status) === \App\Enums\Blog\PostStatus::PUBLISHED->value &&
+            $post->blog_category_id === $newsCategory->id &&
+            $post->notification_sent_at === null
+        ) {
+            // Prevent duplicate triggers
+            $post->notification_sent_at = now();
+            $post->saveQuietly();
+
+            $users = User::all();
+
+            foreach ($users as $user) {
+                \Illuminate\Support\Facades\Mail::to($user->email)->queue(new \App\Mail\NewAnnouncementMail($post));
+            }
         }
     }
 

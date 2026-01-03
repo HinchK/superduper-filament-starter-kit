@@ -106,6 +106,14 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail, Has
             ->fit(Fit::Contain, 300, 300)
             ->nonQueued();
     }
+
+    public function registeredEvents(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Event::class)
+            ->withPivot('status')
+            ->withTimestamps();
+    }
+
     public function getFallbackMediaUrl(string $collectionName = 'default', string $conversion = ''): string
     {
         if ($collectionName === 'avatars') {
