@@ -17,10 +17,6 @@
                     <th scope="col"
                         class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-gray-100">Player</th>
                     <th scope="col"
-                        class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-gray-100">Hcp</th>
-                    <th scope="col"
-                        class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-gray-100">Net</th>
-                    <th scope="col"
                         class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-gray-100">To Par</th>
                     <th scope="col"
                         class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-gray-100">Total</th>
@@ -36,12 +32,6 @@
                         <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-400">
                             {{ $score->user->firstname }} {{ $score->user->lastname }}
                         </td>
-                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-400">
-                            {{ $score->user->handicap ?? 0 }}
-                        </td>
-                        <td class="whitespace-nowrap px-3 py-4 text-sm font-bold text-gray-900 dark:text-gray-100">
-                            {{ $score->net_score ?? '-' }}
-                        </td>
                         <td
                             class="whitespace-nowrap px-3 py-4 text-sm font-semibold {{ $score->to_par <= 0 ? 'text-red-600 dark:text-red-400' : 'text-gray-900 dark:text-gray-100' }}">
                             {{ $score->to_par > 0 ? '+' . $score->to_par : ($score->to_par == 0 ? 'E' : $score->to_par) }}
@@ -52,7 +42,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="6" class="py-10 text-center text-sm text-gray-500 dark:text-gray-400">
+                        <td colspan="4" class="py-10 text-center text-sm text-gray-500 dark:text-gray-400">
                             No scores recorded for this event yet.
                         </td>
                     </tr>

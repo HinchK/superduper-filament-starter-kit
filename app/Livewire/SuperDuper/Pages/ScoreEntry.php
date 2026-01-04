@@ -65,27 +65,12 @@ class ScoreEntry extends Component
 
         $toPar = $totalScore - $currentPar;
 
-        // Calculate Net Score
-        // Net Score = Total Score - (Handicap * (Holes Played / Course Holes))
-        // Using simple gross - handicap for now, assuming full round or proportional.
-        $userHandicap = auth()->user()->handicap ?? 0;
-        
-        // Proportional handicap for partial rounds? Let's just do simple subtraction for now as per Assumptions
-        // But if holesPlayed < courseHoles, we probably shouldn't subtract full handicap.
-        // Let's scale it: round(Handicap * (HolesPlayed / HolesCount))
-        $playedHandicap = ($courseHoles > 0 && $holesPlayed > 0)
-            ? round($userHandicap * ($holesPlayed / $courseHoles))
-            : 0;
-
-        $netScore = $totalScore - $playedHandicap;
-
         Score::create([
             'event_id' => $this->event->id,
             'user_id' => auth()->id(),
             'hole_scores' => $this->holeScores,
             'total_score' => $totalScore,
             'to_par' => $toPar,
-            'net_score' => $netScore,
         ]);
 
         Notification::make()

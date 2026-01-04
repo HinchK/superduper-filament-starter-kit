@@ -16,7 +16,6 @@ class Score extends Model
         'total_score',
         'hole_scores',
         'to_par',
-        'net_score',
     ];
 
     protected $casts = [
