@@ -5,8 +5,9 @@
             {{ $this->form }}
 
             <div class="text-right">
-                <x-filament::button type="submit" form="submit" class="align-right">
-                    Update
+                <x-filament::button type="submit" wire:loading.attr="disabled" wire:target="submit" class="align-right">
+                    <span wire:loading.remove wire:target="submit">Update Profile</span>
+                    <span wire:loading wire:target="submit">Updating...</span>
                 </x-filament::button>
             </div>
         </form>
