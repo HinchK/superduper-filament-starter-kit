@@ -126,7 +126,7 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail, Has
             ->nonQueued();
     }
 
-    public function registeredEvents(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function events(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Event::class)
             ->withPivot('status')

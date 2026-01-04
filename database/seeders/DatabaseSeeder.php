@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             BlogsSeeder::class,
             ContactUsSeeder::class,
             MenuSeeder::class,
+            GolfSeeder::class,
         ]);
     }
 }
