@@ -17,6 +17,11 @@ class Course extends Model
         'par',
         'slope',
         'rating',
+        'hole_pars',
+    ];
+
+    protected $casts = [
+        'hole_pars' => 'array',
     ];
 
     public function events(): HasMany

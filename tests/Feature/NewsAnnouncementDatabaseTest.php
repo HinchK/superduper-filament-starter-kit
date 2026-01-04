@@ -23,21 +23,5 @@ class NewsAnnouncementDatabaseTest extends TestCase
         ]);
     }
 
-    /** @test */
-    public function post_can_have_notification_sent_at_column()
-    {
-        $this->seed(NewsCategorySeeder::class);
-        $category = Category::where('slug', 'news')->first();
 
-        $post = Post::factory()->create([
-            'blog_category_id' => $category->id,
-            'notification_sent_at' => null,
-        ]);
-
-        $this->assertNull($post->notification_sent_at);
-
-        $post->update(['notification_sent_at' => now()]);
-
-        $this->assertNotNull($post->fresh()->notification_sent_at);
-    }
 }

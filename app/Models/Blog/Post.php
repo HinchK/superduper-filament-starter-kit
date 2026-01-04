@@ -56,7 +56,7 @@ class Post extends Model implements HasMedia
         'comments_count',
         'created_by',
         'updated_by',
-        'notification_sent_at',
+        'updated_by',
     ];
 
     /**
@@ -67,7 +67,7 @@ class Post extends Model implements HasMedia
         'published_at' => 'date',
         'scheduled_at' => 'datetime',
         'last_published_at' => 'datetime',
-        'notification_sent_at' => 'datetime',
+        'last_published_at' => 'datetime',
         'options' => 'json',
         'reading_time' => 'integer',
         'view_count' => 'integer',

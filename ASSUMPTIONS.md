@@ -20,8 +20,7 @@ This document lists the assumptions made during the "YOLO Mode" rapid developmen
 
 ## 4. News & Announcements
 - **Reuse:** The existing `Blog` system was reused for News.
-- **Email Trigger:** Emails are triggered when a post in the "News" category is Published.
-- **Duplicates:** A `notification_sent_at` column prevents duplicate emails if a post is edited after publishing.
+- **Email Trigger:** No automated emails are sent when a news post is published. This functionality was removed as per user request.
 
 ## 5. User Profile & Stats
 - **Aggregation:** Stats are aggregated on the fly from the `scores` table rather than cached in a separate `user_stats` table. This is sufficient for smaller leagues but might need optimization for thousands of players.

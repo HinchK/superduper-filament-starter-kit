@@ -19,6 +19,7 @@ class GolfLeagueFilamentTest extends TestCase
         parent::setUp();
         
         $user = User::factory()->create();
+        $user->assignRole('super_admin');
         $this->actingAs($user);
     }
 

@@ -147,6 +147,11 @@ class UserResource extends Resource
                             ])
                             ->columns(2),
 
+                        Forms\Components\TextInput::make('handicap')
+                            ->numeric()
+                            ->default(0)
+                            ->label('Handicap'),
+
                         Forms\Components\Tabs\Tab::make('Roles')
                             ->icon('fluentui-shield-task-48')
                             ->schema([

@@ -36,6 +36,13 @@ class CourseResource extends Resource
                     ->numeric(),
                 Forms\Components\TextInput::make('rating')
                     ->numeric(),
+                Forms\Components\KeyValue::make('hole_pars')
+                    ->label('Hole Pars')
+                    ->keyLabel('Hole Number')
+                    ->valueLabel('Par')
+                    ->addable(true)
+                    ->deletable(true)
+                    ->reorderable(true),
             ]);
     }
 
