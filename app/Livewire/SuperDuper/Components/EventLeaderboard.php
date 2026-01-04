@@ -19,7 +19,7 @@ class EventLeaderboard extends Component
 
         $rankedScores = $rankingService->rankScores($scores);
 
-        return view('livewire.super-duper.components.event-leaderboard', [
+        return view('livewire.superduper.components.event-leaderboard', [
             'scores' => $rankedScores,
         ]);
     }

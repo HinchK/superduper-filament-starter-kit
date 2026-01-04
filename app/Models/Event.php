@@ -54,6 +54,11 @@ class Event extends Model
         return $this->belongsTo(User::class, 'winner_user_id');
     }
 
+    public function scores(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Score::class);
+    }
+
     public function registrations(): BelongsToMany
     {
         return $this->belongsToMany(User::class)

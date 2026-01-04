@@ -37,7 +37,9 @@ class ScoreEntry extends Component
     {
         // Validation could go here (e.g. all holes filled)
 
-        $totalScore = collect($this->holeScores)->sum();
+        $totalScore = collect($this->holeScores)
+            ->map(fn($score) => (int) $score)
+            ->sum();
         $par = $this->event->course->par ?? 72; // Simplified, ideally hole-by-hole par
         $toPar = $totalScore - $par;
 
@@ -66,6 +68,6 @@ class ScoreEntry extends Component
 
     public function render()
     {
-        return view('livewire.super-duper.pages.score-entry');
+        return view('livewire.superduper.pages.score-entry');
     }
 }

@@ -35,6 +35,7 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login(Login::class)
+            ->registration()
             ->passwordReset(RequestPasswordReset::class)
             ->emailVerification(EmailVerification::class)
             ->favicon(fn(GeneralSettings $settings) => Storage::url($settings->site_favicon))

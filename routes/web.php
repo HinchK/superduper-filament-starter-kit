@@ -34,6 +34,7 @@ Route::get('/contact-us', ContactUs::class)->name('contact-us');
 
 Route::get('/calendar', \App\Livewire\SuperDuper\Pages\Calendar::class)->name('calendar');
 Route::get('/events/{event}', \App\Livewire\SuperDuper\Pages\EventDetails::class)->name('event.details');
+Route::get('/events/{event}/score', \App\Livewire\SuperDuper\Pages\ScoreEntry::class)->name('event.score')->middleware('auth');
 Route::get('/standings', \App\Livewire\SuperDuper\Pages\SeasonStandings::class)->name('standings');
 Route::get('/my-stats', \App\Livewire\SuperDuper\Pages\MyStats::class)->name('my-stats')->middleware('auth');
 

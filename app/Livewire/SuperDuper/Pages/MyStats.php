@@ -24,7 +24,7 @@ class MyStats extends Component
             'best_score' => $scores->min('total_score') ?? '-',
         ];
 
-        return view('livewire.super-duper.pages.my-stats', [
+        return view('livewire.superduper.pages.my-stats', [
             'scores' => $scores,
             'stats' => $stats,
         ]);

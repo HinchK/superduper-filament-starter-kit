@@ -3,10 +3,14 @@
         <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">{{ $event->title }}</h1>
 
         @if($event->winner)
-            <div class="mb-6 p-4 bg-yellow-50 dark:bg-yellow-900/30 border-l-4 border-yellow-400 text-yellow-800 dark:text-yellow-200 rounded flex items-center">
+            <div
+                class="mb-6 p-4 bg-yellow-50 dark:bg-yellow-900/30 border-l-4 border-yellow-400 text-yellow-800 dark:text-yellow-200 rounded flex items-center">
                 <div class="mr-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-yellow-500" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1.323l3.954 1.582 1.699-3.181A1 1 0 0118 2.75V13a1 1 0 01-.553.894l-4.553 2.277V19a1 1 0 11-2 0v-3H9v3a1 1 0 11-2 0v-2.829l-4.553-2.277A1 1 0 012 13V2.75a1 1 0 011.347-.946L5 4.323V3a1 1 0 011-1z" clip-rule="evenodd" />
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-yellow-500" viewBox="0 0 20 20"
+                        fill="currentColor">
+                        <path fill-rule="evenodd"
+                            d="M10 2a1 1 0 011 1v1.323l3.954 1.582 1.699-3.181A1 1 0 0118 2.75V13a1 1 0 01-.553.894l-4.553 2.277V19a1 1 0 11-2 0v-3H9v3a1 1 0 11-2 0v-2.829l-4.553-2.277A1 1 0 012 13V2.75a1 1 0 011.347-.946L5 4.323V3a1 1 0 011-1z"
+                            clip-rule="evenodd" />
                     </svg>
                 </div>
                 <div>
@@ -33,12 +37,19 @@
             </div>
         @endif
 
-        <livewire:super-duper.components.event-leaderboard :event="$event" />
+        <livewire:superduper.components.event-leaderboard :event="$event" />
 
-        <div class="mt-8">
+        <div class="mt-8 flex justify-between items-center">
             <a href="{{ route('calendar') }}" class="text-primary-600 hover:text-primary-700 font-medium">
                 &larr; Back to Calendar
             </a>
+
+            @auth
+                <a href="{{ route('event.score', $event) }}"
+                    class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    Enter Score
+                </a>
+            @endauth
         </div>
     </div>
 </div>

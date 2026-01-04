@@ -26,6 +26,17 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail, Has
     use HasApiTokens, HasFactory, Notifiable;
     use Impersonate;
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($user) {
+            if (empty($user->username)) {
+                $user->username = explode('@', $user->email)[0] . rand(1000, 9999);
+            }
+        });
+    }
+
     /**
      * The attributes that are mass assignable.
      *
@@ -37,6 +48,7 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail, Has
         'firstname',
         'lastname',
         'password',
+        'name',
     ];
 
     /**
@@ -90,6 +102,13 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail, Has
     }
 
     // Define an accessor for the 'name' attribute
+    public function setNameAttribute($value)
+    {
+        $parts = explode(' ', $value, 2);
+        $this->attributes['firstname'] = $parts[0];
+        $this->attributes['lastname'] = $parts[1] ?? '';
+    }
+
     public function getNameAttribute()
     {
         return "{$this->firstname} {$this->lastname}";

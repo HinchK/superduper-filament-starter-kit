@@ -24,7 +24,7 @@ class RecentResults extends Component
             $scores = $rankingService->rankScores($scores)->take(3);
         }
 
-        return view('livewire.super-duper.components.recent-results', [
+        return view('livewire.superduper.components.recent-results', [
             'latestEvent' => $latestEvent,
             'topScores' => $scores,
         ]);

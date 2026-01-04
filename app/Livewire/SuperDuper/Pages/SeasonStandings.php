@@ -18,13 +18,13 @@ class SeasonStandings extends Component
         // Fetch all scores for completed events in the current year
         $scores = Score::whereHas('event', function ($query) use ($year) {
             $query->where('status', EventStatus::Completed)
-                  ->whereYear('start', $year);
+                ->whereYear('start', $year);
         })->with('user')->get();
 
         // Aggregate by user
         $standings = $scores->groupBy('user_id')->map(function ($userScores) {
             $user = $userScores->first()->user;
-            
+
             return (object) [
                 'user' => $user,
                 'events_played' => $userScores->count(),
@@ -35,7 +35,7 @@ class SeasonStandings extends Component
             ];
         })->sortBy('avg_score')->values();
 
-        return view('livewire.super-duper.pages.season-standings', [
+        return view('livewire.superduper.pages.season-standings', [
             'standings' => $standings,
         ]);
     }

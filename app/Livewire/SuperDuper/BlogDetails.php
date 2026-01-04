@@ -18,6 +18,7 @@ class BlogDetails extends Component
     public $recentPosts = [];
     public $categories = [];
     public $popularTags = [];
+    public $isPreview; // Declare $isPreview as a public property
 
     public function mount($slug)
     {
@@ -34,10 +35,10 @@ class BlogDetails extends Component
 
     protected function loadPost()
     {
-        // Check if this is a preview request
-        $isPreview = request()->has('preview') && request()->has('token');
+        // Set $isPreview based on request parameters
+        $this->isPreview = request()->has('preview') && request()->has('token');
 
-        if ($isPreview) {
+        if ($this->isPreview) {
             // Load post without published restriction for preview
             $this->post = Post::with([
                 'category',
@@ -45,8 +46,8 @@ class BlogDetails extends Component
                 'tags',
                 'media'
             ])
-            ->where('slug', $this->slug)
-            ->firstOrFail();
+                ->where('slug', $this->slug)
+                ->firstOrFail();
 
             // Verify preview token
             $expectedToken = hash('sha256', $this->post->id . config('app.key'));
@@ -54,7 +55,7 @@ class BlogDetails extends Component
                 abort(403, 'Invalid preview token');
             }
 
-            // Don't track views for preview
+            // No view tracking for previews
         } else {
             // Normal published post loading
             $this->post = Post::with([
@@ -63,11 +64,11 @@ class BlogDetails extends Component
                 'tags',
                 'media'
             ])
-            ->where('slug', $this->slug)
-            ->published()
-            ->firstOrFail();
+                ->where('slug', $this->slug)
+                ->published()
+                ->firstOrFail();
 
-            // Track view for published posts only
+            // Track views only for published posts
             $this->post->trackView();
         }
 
@@ -114,7 +115,6 @@ class BlogDetails extends Component
         // Get popular tags
         $locale = app()->getLocale();
         $this->popularTags = Cache::remember('popular_tags_' . $locale, now()->addHours(6), function () use ($locale) {
-            // Use a more efficient query with proper indexing
             $rawTags = DB::table('taggables')
                 ->join('tags', 'taggables.tag_id', '=', 'tags.id')
                 ->join('blog_posts', function($join) {
@@ -181,24 +181,6 @@ class BlogDetails extends Component
         return json_encode($schema);
     }
 
-    // Share post to social media
-    public function sharePost($platform)
-    {
-        $url = urlencode($this->post->getCanonicalUrl());
-        $title = urlencode($this->post->title);
-
-        switch ($platform) {
-            case 'twitter':
-                return redirect()->away("https://twitter.com/intent/tweet?url={$url}&text={$title}");
-            case 'facebook':
-                return redirect()->away("https://www.facebook.com/sharer/sharer.php?u={$url}");
-            case 'linkedin':
-                return redirect()->away("https://www.linkedin.com/sharing/share-offsite/?url={$url}");
-            case 'whatsapp':
-                return redirect()->away("https://api.whatsapp.com/send?text={$title}%20{$url}");
-        }
-    }
-
     public function render()
     {
         return view('livewire.superduper.blog-details', [
@@ -210,7 +192,7 @@ class BlogDetails extends Component
             'categories' => $this->categories,
             'popularTags' => $this->popularTags,
             'schemaData' => $this->generateSchemaData(),
-            'isPreview' => $this->isPreview,
+            'isPreview' => $this->isPreview, // Now references a defined property
         ])->layout('components.superduper.main', [
             'pageType' => 'blog_post',
             'postTitle' => $this->post->title,
