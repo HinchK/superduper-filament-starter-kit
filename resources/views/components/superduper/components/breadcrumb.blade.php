@@ -5,19 +5,21 @@
         <div class="container-default">
             <div class="breadcrumb-block">
                 <h1 class="breadcrumb-title">{{ $title }}</h1>
-                <ul class="breadcrumb-nav">
-                    <li><a href="{{ route('home') }}">Home</a></li>
-                    @foreach($items as $item)
-                        @if(isset($item['url']))
-                            <li><a href="{{ $item['url'] }}">{{ $item['label'] }}</a></li>
-                        @else
-                            <li>{{ $item['label'] }}</li>
+                <nav aria-label="Breadcrumb">
+                    <ol class="breadcrumb-nav">
+                        <li><a href="{{ route('home') }}">Home</a></li>
+                        @foreach($items as $item)
+                            @if(isset($item['url']))
+                                <li><a href="{{ $item['url'] }}">{{ $item['label'] }}</a></li>
+                            @else
+                                <li aria-current="page">{{ $item['label'] }}</li>
+                            @endif
+                        @endforeach
+                        @if(count($items) === 0)
+                            <li aria-current="page">{{ $title }}</li>
                         @endif
-                    @endforeach
-                    @if(count($items) === 0)
-                        <li>{{ $title }}</li>
-                    @endif
-                </ul>
+                    </ol>
+                </nav>
             </div>
         </div>
 
