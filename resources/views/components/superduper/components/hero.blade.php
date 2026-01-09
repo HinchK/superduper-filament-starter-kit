@@ -82,7 +82,15 @@
                     </div>
                 </div>
 
-                <code class="inline-flex items-center p-4 pl-6 space-x-4 text-sm text-left text-white bg-gray-800 rounded-lg md:text-base">
+                <code x-data="{
+                    command: 'composer create-project riodwanto/superduper-filament-starter-kit',
+                    copied: false,
+                    copy() {
+                        navigator.clipboard.writeText(this.command);
+                        this.copied = true;
+                        setTimeout(() => this.copied = false, 2000);
+                    }
+                }" class="inline-flex items-center p-4 pl-6 space-x-4 text-sm text-left text-white bg-gray-800 rounded-lg md:text-base">
                     <span class="flex items-start gap-4">
                         <span class="text-gray-500 select-none">$</span>
                         <span class="flex-1 leading-snug">
@@ -90,11 +98,21 @@
                             <span class="text-yellow-500">riodwanto/superduper-filament-starter-kit</span>
                         </span>
                     </span>
-                    <svg class="w-5 h-5 text-gray-500 shrink-0" xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                        <path d="M8 2a1 1 0 000 2h2a1 1 0 100-2H8z"></path>
-                        <path d="M3 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v6h-4.586l1.293-1.293a1 1 0 00-1.414-1.414l-3 3a1 1 0 000 1.414l3 3a1 1 0 001.414-1.414L10.414 13H15v3a2 2 0 01-2 2H5a2 2 0 01-2-2V5zM15 11h2a1 1 0 110 2h-2v-2z"></path>
-                    </svg>
+                    <button
+                        @click="copy()"
+                        class="flex-shrink-0 p-2 transition-colors duration-200 rounded text-gray-400 hover:text-white hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-primary-500"
+                        :aria-label="copied ? 'Copied to clipboard' : 'Copy command to clipboard'"
+                        title="Copy to clipboard"
+                    >
+                        <svg x-show="!copied" class="w-5 h-5" xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                            <path d="M8 2a1 1 0 000 2h2a1 1 0 100-2H8z"></path>
+                            <path d="M3 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v6h-4.586l1.293-1.293a1 1 0 00-1.414-1.414l-3 3a1 1 0 000 1.414l3 3a1 1 0 001.414-1.414L10.414 13H15v3a2 2 0 01-2 2H5a2 2 0 01-2-2V5zM15 11h2a1 1 0 110 2h-2v-2z"></path>
+                        </svg>
+                        <svg x-show="copied" x-cloak class="w-5 h-5 text-green-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
                 </code>
             </div>
         </div>
