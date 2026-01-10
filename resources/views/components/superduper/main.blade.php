@@ -350,6 +350,10 @@
 </head>
 
 <body>
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:z-[100] focus:p-4 focus:bg-white focus:text-black focus:top-0 focus:left-0 focus:font-bold focus:shadow-lg">
+        Skip to main content
+    </a>
+
     {{-- ===== BODY START SCRIPTS ===== --}}
     @if(isset($scriptSettings->body_start_scripts))
         {!! $scriptSettings->body_start_scripts !!}
