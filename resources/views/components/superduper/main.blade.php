@@ -350,6 +350,9 @@
 </head>
 
 <body>
+    <!-- Skip to main content link -->
+    <a href="#main-content" class="absolute -top-10 left-1.5 bg-black text-white p-2 z-[1000] rounded transition-all duration-200 focus:top-1.5">{{ __('Skip to main content') }}</a>
+
     {{-- ===== BODY START SCRIPTS ===== --}}
     @if(isset($scriptSettings->body_start_scripts))
         {!! $scriptSettings->body_start_scripts !!}
