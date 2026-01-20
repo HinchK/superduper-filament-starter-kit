@@ -1,3 +1,3 @@
-## 2024-05-23 - Breadcrumb Accessibility
-**Learning:** Breadcrumbs should always be wrapped in a nav element with an appropriate aria-label, and use an ordered list since the path is hierarchical. The current page should be marked with aria-current="page".
-**Action:** When implementing or refactoring navigation components, always check for semantic HTML structure and ARIA attributes for current state.
+## 2024-05-24 - Landing Page Accessibility
+**Learning:** Landing pages often miss basic semantic structures like `<main>` landmarks and skip links because they are custom-designed. Decorative icons in card links can create noisy screen reader experiences if not hidden.
+**Action:** Always verify that custom landing pages include a "Skip to main content" link and that decorative icons inside interactive elements are marked with `aria-hidden="true"`.
