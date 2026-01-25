@@ -350,6 +350,10 @@
 </head>
 
 <body>
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:p-4 focus:bg-white focus:text-black">
+        {{ __('Skip to content') }}
+    </a>
+
     {{-- ===== BODY START SCRIPTS ===== --}}
     @if(isset($scriptSettings->body_start_scripts))
         {!! $scriptSettings->body_start_scripts !!}
