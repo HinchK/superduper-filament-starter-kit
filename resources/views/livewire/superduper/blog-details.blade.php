@@ -236,7 +236,7 @@
                                                     <p class="mb-3 text-sm text-gray-600 line-clamp-2">
                                                         {{ $related->content_overview }}
                                                     </p>
-                                                    <a href="{{ $related->getUrl() }}" class="inline-flex items-center text-sm font-medium text-primary-600 hover:underline">
+                                                    <a href="{{ $related->getUrl() }}" class="inline-flex items-center text-sm font-medium text-primary-600 hover:underline" aria-label="Read more about {{ $related->title }}">
                                                         Read More <i class="ml-1 fa-solid fa-arrow-right"></i>
                                                     </a>
                                                 </div>
