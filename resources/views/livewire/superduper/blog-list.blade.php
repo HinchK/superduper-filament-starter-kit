@@ -154,7 +154,7 @@
                                             <p class="mb-7 line-clamp-2 last:mb-0">
                                                 {{ $post->content_overview }}
                                             </p>
-                                            <a href="{{ $post->getUrl() }}"  wire:click="trackView('{{ $post->id }}')" class="inline-flex items-center text-base font-bold gap-x-2 text-color-black group-hover:text-primary-600">
+                                            <a href="{{ $post->getUrl() }}"  wire:click="trackView('{{ $post->id }}')" class="inline-flex items-center text-base font-bold gap-x-2 text-color-black group-hover:text-primary-600" aria-label="Read more about {{ $post->title }}">
                                                 Read More
                                                 <span class="transition-all duration-300 ease-in-out group-hover:translate-x-2">
                                                     <i class="fa-solid fa-arrow-right"></i>
@@ -186,7 +186,7 @@
                                 <ul class="flex gap-x-[15px]">
                                     <!-- Previous Page -->
                                     <li>
-                                        <button wire:click="previousPage" @if(!$posts->onFirstPage()) wire:loading.attr="disabled" @endif @if($posts->onFirstPage()) disabled @endif class="group flex h-10 w-10 items-center justify-center rounded-[50%] {{ $posts->onFirstPage() ? 'bg-gray-200 cursor-not-allowed' : 'bg-white hover:bg-color-blue hover:text-white' }} font-semibold transition-all duration-300 lg:h-[50px] lg:w-[50px]">
+                                        <button wire:click="previousPage" @if(!$posts->onFirstPage()) wire:loading.attr="disabled" @endif @if($posts->onFirstPage()) disabled @endif class="group flex h-10 w-10 items-center justify-center rounded-[50%] {{ $posts->onFirstPage() ? 'bg-gray-200 cursor-not-allowed' : 'bg-white hover:bg-color-blue hover:text-white' }} font-semibold transition-all duration-300 lg:h-[50px] lg:w-[50px]" aria-label="Previous page">
                                             <i class="fa-solid fa-chevron-left"></i>
                                         </button>
                                     </li>
@@ -194,7 +194,7 @@
                                     <!-- Page Numbers -->
                                     @foreach($posts->getUrlRange(1, $posts->lastPage()) as $page => $url)
                                         <li>
-                                            <button wire:click="gotoPage({{ $page }})" class="group flex h-10 w-10 items-center justify-center rounded-[50%] {{ $page == $posts->currentPage() ? 'bg-color-blue text-white' : 'bg-white hover:bg-color-blue hover:text-white' }} font-semibold transition-all duration-300 lg:h-[50px] lg:w-[50px]">
+                                            <button wire:click="gotoPage({{ $page }})" class="group flex h-10 w-10 items-center justify-center rounded-[50%] {{ $page == $posts->currentPage() ? 'bg-color-blue text-white' : 'bg-white hover:bg-color-blue hover:text-white' }} font-semibold transition-all duration-300 lg:h-[50px] lg:w-[50px]" aria-label="Go to page {{ $page }}" @if($page == $posts->currentPage()) aria-current="page" @endif>
                                                 {{ $page }}
                                             </button>
                                         </li>
@@ -202,7 +202,7 @@
 
                                     <!-- Next Page -->
                                     <li>
-                                        <button wire:click="nextPage" @if(!$posts->hasMorePages()) wire:loading.attr="disabled" @endif @if(!$posts->hasMorePages()) disabled @endif class="group flex h-10 w-10 items-center justify-center rounded-[50%] {{ !$posts->hasMorePages() ? 'bg-gray-200 cursor-not-allowed' : 'bg-white hover:bg-color-blue hover:text-white' }} font-semibold transition-all duration-300 lg:h-[50px] lg:w-[50px]">
+                                        <button wire:click="nextPage" @if(!$posts->hasMorePages()) wire:loading.attr="disabled" @endif @if(!$posts->hasMorePages()) disabled @endif class="group flex h-10 w-10 items-center justify-center rounded-[50%] {{ !$posts->hasMorePages() ? 'bg-gray-200 cursor-not-allowed' : 'bg-white hover:bg-color-blue hover:text-white' }} font-semibold transition-all duration-300 lg:h-[50px] lg:w-[50px]" aria-label="Next page">
                                             <i class="fa-solid fa-chevron-right"></i>
                                         </button>
                                     </li>
