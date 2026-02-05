@@ -5,3 +5,7 @@
 ## 2024-05-24 - Contextual Link Accessibility
 **Learning:** Generic link text like "Read More" creates a confusing experience for screen reader users. Always provide context via aria-label that includes the item's unique identifier (e.g., title).
 **Action:** When implementing list views, verify all "Read More" or "View Details" links have specific aria-labels.
+
+## 2024-05-25 - Icon-only Link Accessibility
+**Learning:** Links that contain only icons (e.g. social media links) are invisible to screen readers without an accessible name.
+**Action:** Always add `aria-label` to icon-only links describing the destination, and add `aria-hidden="true"` to the icon element itself.
