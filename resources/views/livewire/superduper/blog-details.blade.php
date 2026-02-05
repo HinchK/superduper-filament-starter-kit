@@ -169,8 +169,8 @@
                                                 <!-- Social media links if available -->
                                                 @if($post->author->social_links && is_array($post->author->social_links))
                                                     @foreach($post->author->social_links as $platform => $url)
-                                                        <a href="{{ $url }}" target="_blank" rel="noopener" class="text-gray-500 hover:text-primary-600">
-                                                            <i class="fa-brands fa-{{ $platform }}"></i>
+                                                        <a href="{{ $url }}" target="_blank" rel="noopener" class="text-gray-500 hover:text-primary-600" aria-label="Visit {{ $post->author->name }}'s {{ ucfirst($platform) }} profile">
+                                                            <i class="fa-brands fa-{{ $platform }}" aria-hidden="true"></i>
                                                         </a>
                                                     @endforeach
                                                 @endif
