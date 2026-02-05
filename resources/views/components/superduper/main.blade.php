@@ -364,6 +364,10 @@
             </div>
         </div>
     @else
+        <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:z-[60] focus:p-4 focus:bg-white focus:text-black">
+            {{ __('Skip to content') }}
+        </a>
+
         {{-- ===== HEADER COMPONENT ===== --}}
         <x-superduper.header />
 
