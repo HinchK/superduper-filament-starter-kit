@@ -5,3 +5,7 @@
 ## 2024-05-24 - Contextual Link Accessibility
 **Learning:** Generic link text like "Read More" creates a confusing experience for screen reader users. Always provide context via aria-label that includes the item's unique identifier (e.g., title).
 **Action:** When implementing list views, verify all "Read More" or "View Details" links have specific aria-labels.
+
+## 2024-05-24 - Skip Link Visibility
+**Learning:** Skip links must have a z-index higher than fixed headers (often z-50) to be visible when focused.
+**Action:** Use z-[60] or higher for skip links to ensure they layer correctly over sticky/fixed navigation.
