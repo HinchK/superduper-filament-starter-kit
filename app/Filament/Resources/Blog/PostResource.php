@@ -481,6 +481,9 @@ class PostResource extends Resource implements HasShieldPermissions
     public static function table(Table $table): Table
     {
         return $table
+            ->emptyStateHeading('No posts found')
+            ->emptyStateDescription('Create a new post to get started with your blog.')
+            ->emptyStateIcon('heroicon-o-document-text')
             ->modifyQueryUsing(function (Builder $query) {
                 $user = Auth::user();
 

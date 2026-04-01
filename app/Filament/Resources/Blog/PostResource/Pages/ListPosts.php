@@ -18,6 +18,11 @@ class ListPosts extends ListRecords
         ];
     }
 
+    public function getSubheading(): ?string
+    {
+        return 'Manage your blog posts, including drafts, scheduled, and published content.';
+    }
+
     protected function getHeaderWidgets(): array
     {
         return [
